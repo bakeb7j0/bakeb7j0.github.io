@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #333;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Loading state */
+#loading {
+  text-align: center;
+}
+
+.loading-text {
+  font-size: 1.5rem;
+  color: #666;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Error state */
+#error {
+  text-align: center;
+  padding: 2rem;
+}
+
+.error-text {
+  font-size: 1.25rem;
+  color: #ff6b6b;
+  margin-bottom: 1rem;
+}
+
+.error-hint {
+  font-size: 1rem;
+  color: #888;
+}
+
+/* Stage - animation container */
+#stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+/* All layers stack on top of each other */
+.layer {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.layer.visible {
+  opacity: 1;
+}
+
+.layer.fade-out {
+  opacity: 0;
+}
+
+/* Explosion overlay needs to be on top */
+#gif-explosion {
+  z-index: 2;
+}
+
+#gif-box {
+  z-index: 1;
+}
+
+#photo {
+  z-index: 3;
+}
+
+/* Hidden utility */
+.hidden {
+  display: none !important;
+}

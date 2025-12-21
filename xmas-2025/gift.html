@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1a1a2e">
+  <title>You've Got a Gift!</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div id="app">
+    <div id="loading">
+      <div class="loading-text">Loading your gift...</div>
+    </div>
+
+    <div id="error" class="hidden">
+      <div class="error-text"></div>
+      <div class="error-hint">Tap anywhere to retry</div>
+    </div>
+
+    <div id="stage" class="hidden">
+      <img id="gif-box" class="layer" alt="">
+      <img id="gif-explosion" class="layer" alt="">
+      <img id="photo" class="layer" alt="">
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
