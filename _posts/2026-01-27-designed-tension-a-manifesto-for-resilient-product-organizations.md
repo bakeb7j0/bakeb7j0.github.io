@@ -12,17 +12,16 @@ This manifesto exists to name a core truth that many organizations intuit but fe
 
 When competing responsibilities are real, their tensions must be real too. Any system that pretends otherwise becomes brittle.
 
-To make this concrete, this manifesto uses a deliberately generic but broadly relatable example: a modern video game studio operating a portfolio of games built on shared platforms.
-
+Relatable metaphores make ideas concrete. Those who know me won't be surprised; this manifesto uses a deliberately generic but broadly relatable example: a modern video game studio operating a portfolio of games built on shared platforms.
 ---
 
 ## 1. The Myth of Unified Value Alignment
 
 Organizations often pursue “alignment” as an unquestioned good. In practice, alignment is frequently misinterpreted as agreement — or worse, compliance.
 
-A fully value-aligned organization is not strong. It is fragile.
+A fully value-aligned organization is not strong. It is brittle.
 
-When all roles are rewarded for the same things, blind spots emerge:
+When all roles are rewarded based a singular value system, blind spots emerge:
 - Speed overwhelms quality
 - Delivery overwhelms maintainability
 - Feature novelty overwhelms systemic coherence
@@ -49,7 +48,7 @@ When organizations remove friction in the name of speed, they remove the very me
 
 ---
 
-## 3. A Studio, Many Games, One Reality
+## 3. Many Games, One Reality: Products, Platforms, and the Lie of Simplicity
 
 Consider a modern game studio that ships:
 - A flagship competitive multiplayer game
@@ -66,9 +65,11 @@ To engineers, these games share a great deal:
 - UI frameworks
 - Tooling for assets, telemetry, and live operations
 
-Both perspectives are correct — and incomplete.
+Both perspectives are correct — and incomplete. This is a disagreement about **where value coheres**.
 
-The failure occurs when an organization forces one perspective to dominate the other.
+
+
+The failure occurs when an organization forces (or tacitly allows) one perspective to dominate the other.
 
 ---
 
@@ -86,6 +87,9 @@ The truth is less comforting and more powerful:
 
 **The studio builds platforms. The studio ships compositions of those platforms as games.**
 
+A platform is not a support function. It is not a cost center. It is not an abstraction layer that exists to serve “real” products.
+
+A platform is a product.
 ---
 
 ## 5. Platforms Are Products
@@ -101,13 +105,17 @@ These are not internal conveniences. They are products.
 
 They have consumers (game teams), roadmaps, quality bars, adoption risks, and long-term liabilities. Treating them as products makes ownership explicit and tradeoffs conscious.
 
+Treating platforms as products makes ownership explicit and tradeoffs conscious. It creates a legitimate space for maintaining architectural integrity, paying down technical debt, and designing for reuse without apology.
+
 Without this framing, shared systems decay into unmanaged commons — overused, underfunded, and blamed when they fail.
 
 ---
 
-## 6. Product Ownership and Accountability
+## 6. Product Ownership and the Shape of Accountability -- Applying Agile Principles
 
 Agile frameworks demand clear ownership of value. In complex systems, attempting to define value solely at the level of shipped games produces paralysis.
+
+### Platform Owners == Product Owners
 
 Aligning Product Owners to platforms acknowledges reality:
 - Platforms evolve continuously
@@ -120,7 +128,7 @@ This authority is not optional. Without it, platforms become feature factories a
 
 ---
 
-## 7. Game Teams as Internal Customers
+### Game Teams as Internal Customers
 
 Game directors, creative leads, and production teams serve a critical role. They understand players, genres, and experiential nuance.
 
@@ -135,7 +143,7 @@ When game teams bypass platform ownership “just this once,” the ecosystem be
 
 ---
 
-## 8. Designed Tension, Not Bureaucracy
+## 7. Designed Tension, Not Bureaucracy
 
 Designed tension is not process theater. It is not governance for its own sake.
 
@@ -148,11 +156,11 @@ Healthy tension:
 
 Unhealthy tension hides in side channels, escalations, and burnout.
 
-The goal is not consensus. The goal is **earned compromise**.
+The goal is not consensus. The goal is **earned compromise** done at the seams of an organization's value patchwork.
 
 ---
 
-## 9. Leadership’s Real Responsibility
+## 8. Leadership’s Real Responsibility
 
 Leadership does not exist to resolve all conflict.
 
@@ -164,11 +172,11 @@ When leadership collapses designed tension in the name of expedience, the organi
 
 > The system is optional. Power is not.
 
-That lesson is rarely unlearned.
+That lesson is rarely unlearned, and begins the demise of forward progress.
 
 ---
 
-## 10. Diversity as Structural Resilience
+## 9. Diversity as Structural Resilience
 
 Diversity is often framed as a cultural or moral imperative. It is also an engineering principle.
 
@@ -188,8 +196,9 @@ Organizations building complex, creative, and mission-critical systems cannot af
 
 They must design for how people actually behave. For how tradeoffs actually occur. For how failure actually propagates.
 
-Designed tension is not pessimism. It is respect for reality.
+Designed tension is not pessimism. It is respect for reality.  People are predictable, and we can *use* this predictiability to reliably nurture true organizational strength.
 
-Strong organizations are not those without conflict.
-They are those that have learned where conflict belongs — and have the courage to keep it there.
+Strong organizations are not those without conflict.  They are those that know how to *leverage* conflict to achieve a common goal.
+
+Identify where conflict belongs — and have the courage to keep it there.
 
