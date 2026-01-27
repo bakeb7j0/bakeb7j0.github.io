@@ -1,4 +1,4 @@
-# Designed Tension: A Manifesto for Resilient Product Organizations
+# Designed Tension -- Manifesto for Resilient Product Organizations
 
 ## Preface: Why This Exists
 
