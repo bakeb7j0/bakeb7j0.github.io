@@ -1,0 +1,287 @@
+<title>The Federated ALM Manifesto</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --ground:#080b16; --panel:#0e1426; --panel-2:#121a30; --edge:#232c4d; --edge-soft:#1a2240;
+    --text:#dde5f6; --text-soft:#96a3c2; --text-faint:#6a7699;
+    --cyan:#00e5ff; --magenta:#ff2bd6; --lime:#39ff14; --amber:#ffb703; --danger:#ff3864; --violet:#b14aed;
+    --display:"Chakra Petch",system-ui,sans-serif;
+    --body:"Source Serif 4",Georgia,serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --measure:66ch;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--ground);color:var(--text);font-family:var(--body);
+       font-size:17px;line-height:1.7;margin:0;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--measure);margin:0 auto;padding:0 24px}
+  a{color:var(--cyan);text-underline-offset:2px}
+  a:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:2px}
+
+  /* ---- hero: the thesis -------------------------------------------- */
+  header.hero{padding:88px 0 72px;border-bottom:1px solid var(--edge);position:relative;overflow:hidden}
+  header.hero::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(680px 380px at 18% -10%,rgba(0,229,255,.13),transparent 62%),
+               radial-gradient(560px 340px at 88% 8%,rgba(255,43,214,.11),transparent 62%);
+    pointer-events:none}
+  .hero .wrap{position:relative}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+           color:var(--cyan);margin:0 0 24px}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(2.3rem,6.4vw,4rem);line-height:1;
+     letter-spacing:-.02em;margin:0 0 28px;text-wrap:balance;color:#fff}
+  .thesis{font-family:var(--display);font-weight:500;font-size:clamp(1.25rem,3vw,1.7rem);line-height:1.32;
+          color:var(--cyan);margin:0 0 26px;text-wrap:balance;letter-spacing:-.01em}
+  .sub{color:var(--text-soft);font-size:1.08rem;margin:0;max-width:56ch}
+  .byline{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+          color:var(--text-faint);margin-top:38px}
+
+  main{padding:8px 0 0}
+  section{padding:56px 0;border-bottom:1px solid var(--edge-soft)}
+  section:last-of-type{border-bottom:0}
+  h2{font-family:var(--display);font-weight:600;font-size:1.72rem;line-height:1.16;letter-spacing:-.015em;
+     margin:0 0 22px;text-wrap:balance;color:#fff}
+  h3{font-family:var(--display);font-weight:600;font-size:1.1rem;margin:30px 0 8px;color:#eef3ff}
+  p{margin:0 0 18px}
+  strong{font-weight:600;color:#f2f6ff}
+  em{color:#cdd8ef}
+  ul{margin:0 0 18px;padding-left:0;list-style:none}
+  ul li{position:relative;padding-left:22px;margin-bottom:10px}
+  ul li::before{content:"";position:absolute;left:2px;top:.72em;width:7px;height:1px;background:var(--magenta)}
+
+  blockquote{margin:26px 0;padding:0 0 0 22px;border-left:2px solid var(--magenta);
+             font-family:var(--display);font-weight:500;font-size:1.16rem;line-height:1.45;color:#fff}
+  blockquote p{margin:0}
+  blockquote cite{display:block;font-family:var(--mono);font-size:11px;font-style:normal;letter-spacing:.12em;
+                  text-transform:uppercase;color:var(--text-faint);margin-top:12px}
+
+  /* ---- the seven principles ---------------------------------------- */
+  .principles{display:grid;gap:2px;background:var(--edge-soft);border:1px solid var(--edge);margin:34px 0}
+  .principle{background:var(--panel);padding:26px 26px 10px;display:grid;
+             grid-template-columns:56px 1fr;gap:20px;align-items:start}
+  .principle .n{font-family:var(--display);font-weight:700;font-size:2.1rem;line-height:1;
+                color:var(--violet);font-variant-numeric:tabular-nums}
+  .principle:nth-child(2n) .n{color:var(--cyan)}
+  .principle:nth-child(3n) .n{color:var(--magenta)}
+  .principle h3{margin:0 0 10px;font-size:1.14rem;color:#fff}
+  .principle p{font-size:.97rem;color:var(--text-soft)}
+  .principle p strong{color:#e8eefc}
+
+  /* ---- callouts ---------------------------------------------------- */
+  .refuse{background:var(--panel-2);border:1px solid var(--edge);border-left:3px solid var(--danger);
+          padding:24px 26px;margin:26px 0}
+  .refuse .k{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+             color:var(--danger);display:block;margin-bottom:10px}
+  .refuse p:last-child{margin-bottom:0}
+
+  .practice{display:grid;gap:2px;background:var(--edge-soft);border:1px solid var(--edge);margin:28px 0}
+  .practice > div{background:var(--panel);padding:22px 24px 8px}
+  .practice .k{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+               color:var(--lime);display:block;margin-bottom:8px}
+  .practice p{font-size:.96rem;color:var(--text-soft)}
+  .practice p strong{color:#e8eefc}
+
+  .kicker{font-family:var(--display);font-weight:600;font-size:1.32rem;line-height:1.35;color:var(--lime);
+          text-wrap:balance;margin:0 0 18px}
+
+  /* ---- companion + footer ------------------------------------------ */
+  .companion{background:var(--panel);border-top:2px solid var(--cyan);padding:36px 0;margin-top:8px}
+  .companion .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+                color:var(--cyan);margin:0 0 10px}
+  .companion h3{font-family:var(--display);color:#fff;margin:0 0 8px;font-size:1.2rem}
+  .companion p{margin:0;font-size:.97rem;color:var(--text-soft)}
+  footer{padding:30px 0 64px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+         text-transform:uppercase;color:var(--text-faint)}
+  @media (max-width:640px){
+    body{font-size:16px}
+    .principle{grid-template-columns:1fr;gap:6px}
+    .principle .n{font-size:1.5rem}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Oak and Wave · a declaration of principles</p>
+    <h1>The Federated ALM Manifesto</h1>
+    <p class="thesis">The ALM is not a tool. It is the set of treaties between tools.</p>
+    <p class="sub">Lifecycle management that respects the tools, the teams, and the work — and refuses the centralisation that has failed the category for forty years.</p>
+    <p class="byline">Brian Baker · 2026</p>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="wrap">
+    <h2>The problem we refuse to repeat</h2>
+    <p>For decades, the ALM industry has operated under a false assumption: that one tool must own the lifecycle. Every major platform — Jira, Polarion, DOORS, Azure DevOps — positions itself as the hub through which all work must flow. The result is predictable and universal:</p>
+    <ul>
+      <li>Teams put <em>some</em> data in the ALM, but do their real work elsewhere.</li>
+      <li>The gap between the ALM and reality is bridged by manual sync, semi-automated duct tape, and hope.</li>
+      <li>Data in any single system becomes untrustworthy.</li>
+      <li>The tool that was supposed to create clarity becomes the primary source of confusion.</li>
+    </ul>
+    <p>We have seen this firsthand. Requirements in Jama. “Management” in Jira. Actual engineering in GitLab. Three systems, three incomplete pictures, zero source of truth. Every organisation that adopts a centralised ALM eventually arrives at this same place — not because the people failed, but because <strong>the model is wrong</strong>.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>The false equivalence</h2>
+    <p>The centralised ALM model rests on a seductive logical error:</p>
+    <blockquote><p>“We refine requirements during sprints, therefore our sprint tool must own requirements.”</p></blockquote>
+    <p>This is like saying:</p>
+    <blockquote><p>“We discuss architecture in meetings, therefore our calendar app is our architecture tool.”</p></blockquote>
+    <p>Just because an activity <em>occurs within</em> a process does not mean the process tool <em>owns</em> that activity’s artifacts. Requirements analysis can absolutely happen inside Scrum ceremonies. That does not make Jira a requirements management system. It makes Jira a place where people talk about requirements — which is a fundamentally different thing.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Dual citizenship</h2>
+    <p>Every work item in a software lifecycle has a <strong>home system</strong> — the tool where it is authoritative, where its schema is enforced, where its history is canonical. But work items also make <strong>guest appearances</strong> in other systems. A requirement appears in a sprint board. An epic appears in a traceability matrix. A test result appears in a PM dashboard.</p>
+    <div class="refuse">
+      <span class="k">The centralised model says</span>
+      <p>“Immigrate everything into one country.” The result is bloated tools, half-populated fields, and data that belongs nowhere because it was forced to belong everywhere.</p>
+    </div>
+    <p>The federated model says: <strong>grant dual citizenship.</strong> Each work item keeps its home. Other systems recognise it, reference it, and interact with it — but they do not try to own it. A requirement’s home is the requirements tool. An epic’s home is the engineering platform. A test plan’s home is wherever test plans are managed.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Seven principles</h2>
+
+    <div class="principles">
+
+      <article class="principle">
+        <span class="n">1</span>
+        <div>
+          <h3>Each tool owns exactly one domain</h3>
+          <p>A requirements tool manages requirements. An engineering platform manages implementation. A test management system manages test plans. <strong>No tool tries to be adequate at everything. Each tool strives to be excellent at one thing.</strong></p>
+        </div>
+      </article>
+
+      <article class="principle">
+        <span class="n">2</span>
+        <div>
+          <h3>Authority is never duplicated</h3>
+          <p>For any piece of data, exactly one system is the source of truth. Others may hold references or derived views — but when there is a conflict, the home system wins. There is no “sync” between equals, because <strong>there are no equals</strong>. There is one authority and many consumers.</p>
+          <p>Note what is deliberately <em>not</em> permitted: a durable copy of another system’s mutable state. A reference <strong>addresses</strong> an artifact; a copy <strong>describes</strong> it — and a description begins drifting the moment the home system changes, silently, with no event to tell you. A consumer holding a stale description has not saved a network call, it has manufactured a second authority.</p>
+        </div>
+      </article>
+
+      <article class="principle">
+        <span class="n">3</span>
+        <div>
+          <h3>Integration is by reference, not by copy</h3>
+          <p>When the requirements tool needs to know an epic’s status, it holds a reference — a project ID and an epic ID — and queries the engineering platform. It does not copy the epic into its own database and try to keep it updated. <strong>References are cheap, durable, and never stale. Copies are expensive, fragile, and always eventually wrong.</strong></p>
+        </div>
+      </article>
+
+      <article class="principle">
+        <span class="n">4</span>
+        <div>
+          <h3>Interfaces are the architecture</h3>
+          <p>The value of a federated ALM is not in any single tool. It is in the <strong>contracts between tools</strong> — the APIs, webhooks, and data formats that let each tool be a good citizen. An organisation with five excellent tools and no interfaces has a fragmented ALM. The same organisation with well-defined interfaces has a federated one. <strong>The difference is not the tools. It is the connective tissue.</strong></p>
+        </div>
+      </article>
+
+      <article class="principle">
+        <span class="n">5</span>
+        <div>
+          <h3>Views are derived, never stored</h3>
+          <p>A PM dashboard that shows “72% of requirements have passing tests” does not store that number. It computes it on demand by querying the requirements tool and the test system. <strong>Stored rollups are lies waiting to happen. Derived views are always current.</strong></p>
+        </div>
+      </article>
+
+      <article class="principle">
+        <span class="n">6</span>
+        <div>
+          <h3>The lifecycle emerges from composition</h3>
+          <p>No single tool “manages the lifecycle.” The lifecycle is the emergent behaviour of well-composed tools, each doing its job, each respecting the others’ authority. <strong>You do not design the lifecycle into a tool. You design the tools to be composable, and the lifecycle reveals itself.</strong></p>
+        </div>
+      </article>
+
+      <article class="principle">
+        <span class="n">7</span>
+        <div>
+          <h3>Complexity belongs at the boundaries</h3>
+          <p>Individual tools should be simple. The requirements tool does not need to understand sprint velocity. The engineering platform does not need to understand regulatory compliance matrices. Complexity lives in the integration layer — <strong>the thin membrane between systems</strong> where translation and mapping occur. It is the only place cross-domain knowledge is required, and it should be as thin as possible.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>What this means in practice</h2>
+
+    <div class="practice">
+      <div>
+        <span class="k">For requirements management</span>
+        <p>Build a tool that is ruthlessly focused on requirements — their text, their relationships, their verification status, their traceability. <strong>It does not manage sprints. It does not track time. It does not render Gantt charts.</strong> It exposes a clean API so that tools which <em>do</em> those things can reference its data.</p>
+      </div>
+      <div>
+        <span class="k">For engineering</span>
+        <p>Use the best engineering platform available. Do not try to make it a requirements tool. Let it be excellent at what it is: code, merge requests, CI/CD, epics, issues. When an epic satisfies a requirement, record that link — <strong>but the requirement lives elsewhere.</strong></p>
+      </div>
+      <div>
+        <span class="k">For project management</span>
+        <p>PM views are dashboards that read from multiple authoritative sources. <strong>They are lenses, not ledgers.</strong> A PM should never have to “update the status” of something in their tool — the status should flow automatically from the systems where the actual work is happening.</p>
+      </div>
+      <div>
+        <span class="k">For test management</span>
+        <p>Test <em>plans</em> are the mirror image of requirements on the verification side of the V-model — but <strong>a mirror is not the same room</strong>. A test plan’s home is the test management system, exactly as an epic’s home is the engineering platform. Test <em>procedures</em> belong with the code. Test <em>results</em> flow from execution back toward the requirements tool to close the traceability loop — pushed by the systems that produce them, never fetched by reaching through a plan into someone else’s CI.</p>
+        <p>The V-model’s symmetry is a statement about <em>meaning</em>, not about <em>storage</em>. A requirements tool that absorbed test plans because they “belong with” requirements would have taken a second domain on the strength of a metaphor — <strong>which is how every centralised ALM starts.</strong></p>
+      </div>
+      <div>
+        <span class="k">For compliance</span>
+        <p>A traceability matrix is not a document you maintain. It is a report you generate on demand from the live state of your federated tools. <strong>If your RTM can go stale, your architecture is wrong.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>The UNIX precedent</h2>
+    <p>This is not a new idea. It is the oldest idea in software:</p>
+    <blockquote>
+      <p>Write programs that do one thing and do it well. Write programs to work together.</p>
+      <cite>Doug McIlroy, 1978</cite>
+    </blockquote>
+    <p>The ALM industry ignored this for forty years because there was money in monoliths. <strong>We are choosing not to ignore it.</strong></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>What we are building</h2>
+    <p class="kicker">Ruthless. Not an ALM platform. Not a project management suite. A tool that does one thing — manages requirements and their traceability to external systems — and does it well.</p>
+    <p>It will have a clean API. It will integrate with engineering platforms by reference. It will produce audit artifacts on demand. It will be the <em>foundation</em> of a federated ALM, not the totality of one. The rest of the lifecycle will be handled by tools that already exist and already excel at their jobs.</p>
+    <div class="refuse">
+      <span class="k">The discipline this imposes on us</span>
+      <p>Ruthless is the missing <strong>citizen</strong>, not the missing <strong>protocol</strong>. It holds up one end of the treaties — requirements and their traceability — and is a good enough citizen that the federation becomes possible around it. But the integration layer is its own component with its own home, <em>not</em> a subsystem of Ruthless.</p>
+      <p>Principle 1 forbids any tool from owning two domains, and “requirements” and “the protocol between all tools” are unmistakably two. A requirements tool that also owned the connective tissue would be the same centralisation this document rejects, wearing a friendlier name — and it would fail the same way, because <strong>the tool that owns the protocol inevitably starts owning the data that flows through it.</strong></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="companion">
+  <div class="wrap">
+    <p class="k">Companion document</p>
+    <h3>Requirements Management — Our Workflow</h3>
+    <p>This manifesto argues why the category needs doing differently. The companion shows what we actually do with a requirements document — eight beliefs with their costs, the process as a diagram, and every state and transition defined. <a href="https://bakeb7j0.github.io/ruthless/workflow.html">Read the workflow →</a></p>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">Oak and Wave · 2026</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,securityLevel:'loose'});</script>

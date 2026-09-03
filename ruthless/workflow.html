@@ -1,0 +1,512 @@
+<title>Requirements Workflow</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --ground:#f6f8fc; --panel:#ffffff; --ink:#121829; --ink-soft:#4a5570; --ink-faint:#6f7b96;
+    --rule:#dde3f0; --rule-strong:#c3cce0;
+    --plate:#0b0f1e; --plate-edge:#2a2f55;
+    --cyan:#0090a8; --magenta:#b31490; --amber:#a06a00; --danger:#c41239; --violet:#6c2bab; --lime:#1f7a1a;
+    --neon-cyan:#00e5ff; --neon-magenta:#ff2bd6; --neon-lime:#39ff14; --neon-amber:#ffb703;
+    --display:"Chakra Petch",system-ui,sans-serif;
+    --body:"Source Serif 4",Georgia,serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --measure:68ch;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--ground);color:var(--ink);font-family:var(--body);
+       font-size:17px;line-height:1.65;margin:0;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--measure);margin:0 auto;padding:0 24px}
+  .bleed{max-width:1180px;margin:0 auto;padding:0 24px}
+
+  /* ---- masthead ---------------------------------------------------- */
+  header.mast{background:var(--plate);color:#e9eefb;padding:64px 0 52px;border-bottom:3px solid var(--neon-cyan)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+           color:var(--neon-cyan);margin:0 0 20px}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(2.1rem,5.2vw,3.4rem);line-height:1.04;
+     letter-spacing:-.015em;margin:0 0 20px;text-wrap:balance;color:#fff}
+  .standfirst{font-size:1.14rem;line-height:1.6;color:#b9c4de;margin:0;max-width:60ch}
+  .mast-meta{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+             color:#7b88ab;margin-top:32px;display:flex;gap:26px;flex-wrap:wrap}
+
+  /* ---- structure --------------------------------------------------- */
+  main{padding:56px 0 40px}
+  section{margin-bottom:64px}
+  h2{font-family:var(--display);font-weight:600;font-size:1.62rem;line-height:1.2;letter-spacing:-.01em;
+     margin:0 0 8px;text-wrap:balance;display:flex;align-items:baseline;gap:14px}
+  h2 .num{font-family:var(--mono);font-size:.72em;font-weight:700;color:var(--cyan);letter-spacing:.04em}
+  h3{font-family:var(--display);font-weight:600;font-size:1.14rem;margin:34px 0 8px;letter-spacing:-.005em}
+  .lede{color:var(--ink-soft);margin:0 0 30px}
+  p{margin:0 0 17px}
+  a{color:var(--cyan);text-underline-offset:2px;text-decoration-thickness:1px}
+  a:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:2px}
+  strong{font-weight:600}
+  .rule{border:0;border-top:1px solid var(--rule);margin:0 0 30px}
+
+  /* ---- belief blocks ----------------------------------------------- */
+  .beliefs{display:grid;gap:18px}
+  .belief{background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--violet);
+          padding:22px 24px 6px}
+  .belief.expensive{border-left-color:var(--danger)}
+  .belief .tag{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;
+               color:var(--violet);display:block;margin-bottom:6px}
+  .belief.expensive .tag{color:var(--danger)}
+  .belief h3{margin:0 0 12px;font-size:1.16rem}
+  .belief p{font-size:.97rem}
+  .fc{display:grid;gap:0;margin:14px 0 18px;border-top:1px solid var(--rule)}
+  .fc div{display:grid;grid-template-columns:74px 1fr;gap:16px;padding:11px 0;border-bottom:1px solid var(--rule);
+          font-size:.94rem;line-height:1.55}
+  .fc dt,.fc .k{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.12em;
+                text-transform:uppercase;color:var(--ink-faint);padding-top:4px}
+  .fc .k.cost{color:var(--amber)}
+  .belief.expensive .fc .k.cost{color:var(--danger)}
+
+  /* ---- tables ------------------------------------------------------ */
+  .tw{overflow-x:auto;margin:0 0 20px;border:1px solid var(--rule);background:var(--panel)}
+  table{border-collapse:collapse;width:100%;font-size:.92rem;font-variant-numeric:tabular-nums}
+  th{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;
+     text-align:left;color:var(--ink-faint);padding:12px 16px;border-bottom:1px solid var(--rule-strong);
+     background:#eef1f8;white-space:nowrap}
+  td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.5}
+  tr:last-child td{border-bottom:0}
+  td code,.mono{font-family:var(--mono);font-size:.86em}
+  td strong{font-weight:600}
+
+  /* ---- diagram plates ---------------------------------------------- */
+  figure.plate{margin:34px 0;background:var(--plate);border:1px solid var(--plate-edge);
+               border-top:2px solid var(--neon-magenta);padding:8px 8px 0}
+  figure.plate .mermaid{overflow-x:auto;display:block;padding:16px 8px}
+  figure.plate figcaption{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+                          color:#7b88ab;padding:14px 16px;border-top:1px solid var(--plate-edge)}
+  figure.plate figcaption b{color:var(--neon-magenta);font-weight:700}
+
+  /* ---- pull quote / callout ---------------------------------------- */
+  .pull{background:var(--plate);color:#dce4f5;border-left:3px solid var(--neon-lime);
+        padding:26px 28px;margin:30px 0;font-size:1.02rem;line-height:1.6}
+  .pull .big{font-family:var(--display);font-weight:700;font-size:1.5rem;color:var(--neon-lime);
+             display:block;margin-bottom:10px;letter-spacing:-.01em}
+  .pull p:last-child{margin-bottom:0}
+
+  .note{border:1px solid var(--rule);border-left:3px solid var(--amber);background:var(--panel);
+        padding:18px 22px;margin:24px 0;font-size:.95rem}
+  .note .k{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+           color:var(--amber);display:block;margin-bottom:7px}
+  .note p:last-child{margin-bottom:0}
+
+  /* ---- status pills ------------------------------------------------ */
+  .pill{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+        padding:3px 8px;border:1px solid currentColor;white-space:nowrap;display:inline-block}
+  .p-built{color:var(--lime)} .p-partial{color:var(--amber)} .p-design{color:var(--violet)}
+
+  /* ---- companion / footer ------------------------------------------ */
+  .companion{background:var(--plate);color:#c6d0e8;padding:34px 0;margin-top:12px;border-top:2px solid var(--neon-cyan)}
+  .companion .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+                color:var(--neon-cyan);margin:0 0 10px}
+  .companion h3{font-family:var(--display);color:#fff;margin:0 0 8px;font-size:1.2rem}
+  .companion p{margin:0;font-size:.97rem;color:#a9b5d1}
+  .companion a{color:var(--neon-cyan)}
+  footer{padding:30px 0 60px;font-size:.87rem;color:var(--ink-faint)}
+  @media (max-width:640px){
+    body{font-size:16px}
+    .fc div{grid-template-columns:1fr;gap:4px}
+    .fc dt,.fc .k{padding-top:0}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <p class="eyebrow">Oak and Wave · prepared for review</p>
+    <h1>Requirements Management — Our Workflow</h1>
+    <p class="standfirst">How we take a customer requirements document and turn it into a traceable, verifiable engineering commitment — and why we do it this way rather than another way.</p>
+    <div class="mast-meta"><span>Eight beliefs</span><span>Five stages</span><span>Nine states</span><span>2026</span></div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+<section>
+  <p>The workflow is downstream of a small number of beliefs. If you disagree with the beliefs, you will disagree with the workflow — and that is the more useful conversation to have first, which is why they come before the diagram.</p>
+</section>
+
+<section>
+  <h2><span class="num">01</span> The beliefs that drive the decisions</h2>
+  <p class="lede">Every requirements tool encodes an opinion. Most encode theirs silently, which is how teams end up fighting their tooling without ever being able to name what they are fighting. Ours are written down — each with <strong>what it forces us to do</strong> and <strong>what it costs</strong>. A belief with no cost attached is marketing.</p>
+  <hr class="rule">
+
+  <div class="beliefs">
+
+    <article class="belief">
+      <span class="tag">B1</span>
+      <h3>Each tool owns exactly one domain</h3>
+      <p>A requirements tool manages requirements. An engineering platform manages implementation. A test management system manages test plans. No tool is asked to be adequate at everything.</p>
+      <div class="fc">
+        <div><span class="k">Forces</span><span>Requirements live in a requirements registry, not in the sprint tool. Epics stay in the engineering platform. Test plans stay in the test system.</span></div>
+        <div><span class="k cost">Costs</span><span>More systems, and a hard dependency on the interfaces between them. There is no single pane of glass you can log into and see everything by clicking around.</span></div>
+      </div>
+    </article>
+
+    <article class="belief">
+      <span class="tag">B2</span>
+      <h3>Authority is never duplicated</h3>
+      <p>For any piece of data, exactly one system is the source of truth. Others hold references or derived views. When there is a conflict, the home system wins — because there is no conflict to arbitrate, only a stale consumer.</p>
+      <div class="fc">
+        <div><span class="k">Forces</span><span>No sync jobs, no nightly reconciliation, no “which one is right?” meetings.</span></div>
+        <div><span class="k cost">Costs</span><span>You cannot edit an epic from inside the requirements tool. Round trips are real.</span></div>
+      </div>
+    </article>
+
+    <article class="belief">
+      <span class="tag">B3</span>
+      <h3>Integration is by reference, never by copy</h3>
+      <p>We store what <strong>addresses</strong> an artifact — a project ID and an epic ID. We never store what <strong>describes</strong> it: its status, its title, its assignee. A description begins drifting the moment the home system changes, silently, with no event to tell you.</p>
+      <div class="fc">
+        <div><span class="k">Forces</span><span>Every status figure is a live query against the system that owns it.</span></div>
+        <div><span class="k cost">Costs</span><span>The requirements tool is only as available as the systems it federates with. Reads are slower than reading a local cache, because there is no local cache.</span></div>
+      </div>
+    </article>
+
+    <article class="belief">
+      <span class="tag">B4</span>
+      <h3>Views are derived, never stored</h3>
+      <p>A dashboard showing “72% of requirements have passing tests” does not store that number. It computes it on demand. A stored rollup is a lie waiting to happen.</p>
+      <div class="fc">
+        <div><span class="k">Forces</span><span>No reporting tables, no materialised metrics, no “as of last night.”</span></div>
+        <div><span class="k cost">Costs</span><span>A dashboard number is a fan-out across every federated system, every time.</span></div>
+      </div>
+    </article>
+
+    <article class="belief expensive">
+      <span class="tag">B5 · the expensive one</span>
+      <h3>Missing data is declared, and the operation stops</h3>
+      <p>If a federated system cannot be reached, we say so and abandon what we were about to compute. We do not fall back to a cached figure, do not treat unknown as zero, and do not compute a percentage over “the systems that happened to answer.”</p>
+      <div class="fc">
+        <div><span class="k">Forces</span><span>Partial results are never presented as whole ones. Failures are visible and attributed — <em>“197 of 200 resolved; GitLab unreachable; 3 requirements affected.”</em></span></div>
+        <div><span class="k cost">Costs</span><span>One unreachable system takes the headline number dark. A programme manager opens the dashboard expecting “68% implemented” and instead sees “unavailable — here is exactly what is missing and why.”</span></div>
+      </div>
+      <p>We consider a number that can be quietly wrong to be worse than a number that is honestly absent. We have deliberately <strong>not</strong> built an “exclude the unavailable and compute anyway” option, even as an opt-in — that is manufacturing the answer with an extra click in front of it.</p>
+    </article>
+
+    <article class="belief">
+      <span class="tag">B6</span>
+      <h3>Satisfaction, Adequacy and Compliance are three different questions</h3>
+      <p>Conflating them under the word “completeness” caused a real design error in our own model, which we corrected. They are now kept apart by construction.</p>
+      <div class="tw" style="margin-top:14px">
+        <table>
+          <thead><tr><th>&nbsp;</th><th>The question</th><th>Who answers</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Satisfaction</strong></td><td><em>How far along is this set?</em></td><td>The tool — arithmetic over live figures</td></tr>
+            <tr><td><strong>Adequacy</strong></td><td><em>Is this the <strong>right</strong> set?</em></td><td><strong>A human.</strong> Never computed, never inferred</td></tr>
+            <tr><td><strong>Compliance</strong></td><td><em>Does this requirement have its required sets at all?</em></td><td>The tool — a structural check</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="fc">
+        <div><span class="k">Forces</span><span>The tool will happily report that a requirement is 100% satisfied by a set of epics that does not actually cover it. It reports arithmetic; it does not certify.</span></div>
+        <div><span class="k cost">Costs</span><span>You cannot automate your way to a defensible requirements baseline. Somebody has to look, and the system records who did.</span></div>
+      </div>
+    </article>
+
+    <article class="belief">
+      <span class="tag">B7</span>
+      <h3>Judgement is represented, never enforced</h3>
+      <p>We record that a person exercised judgement over a set, and who. We do not refuse to function until they do, do not block queries on unratified sets, and do not nag.</p>
+      <div class="fc">
+        <div><span class="k">Forces</span><span>The tool stays usable during the messy middle of a programme.</span></div>
+        <div><span class="k cost">Costs</span><span>It will not stop a team from shipping an unratified baseline. It is a helpful tool, not a compliance regime — by choice. Every organisation we have watched adopt a compliance-regime tool ends up keeping the real work somewhere else.</span></div>
+      </div>
+    </article>
+
+    <article class="belief">
+      <span class="tag">B8</span>
+      <h3>Automated suggestions are reporting, never a decision input</h3>
+      <p>Everything the system proposes — a decomposition candidate, a rewrite, a quality flag — exists for a human to act on. One machine-generated signal is never chained into a second as though the first had already been verified.</p>
+      <div class="fc">
+        <div><span class="k">Forces</span><span>A quality classification may inform <em>what a human next requests</em>. It never issues that request itself.</span></div>
+        <div><span class="k cost">Costs</span><span>Less automation than is technically achievable. This is deliberate: the step that is cheapest to chain automatically is the one nobody is allowed to delegate.</span></div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">02</span> Does this replace Jira?</h2>
+  <p class="lede"><strong>No, and it is designed specifically not to.</strong> This is the first question every reviewer asks, so it is answered before the diagram rather than after it.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Stays exactly where it is</th><th>Moves into the requirements registry</th></tr></thead>
+      <tbody>
+        <tr><td>Epics, stories, sprints, boards</td><td>The customer’s requirements, verbatim</td></tr>
+        <tr><td>Assignees, workflows, velocity</td><td>The decomposition into system requirements</td></tr>
+        <tr><td>Test plans and executions</td><td>The <em>claim</em> that an epic satisfies a requirement</td></tr>
+        <tr><td>Everything your teams do daily</td><td>The traceability record and its audit artifacts</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Engineering teams keep working in the tools they already use. Nobody is asked to update status in a second place — status <strong>flows</strong> from where the work happens. What the registry adds is the one artifact none of those tools holds: an authoritative, live, auditable answer to <em>“which requirement is this work discharging, and is it covered?”</em></p>
+  <p>If your teams have to maintain the traceability by hand, we have built the wrong thing.</p>
+</section>
+</div>
+
+<div class="bleed">
+<section>
+  <div class="wrap" style="padding:0">
+    <h2><span class="num">03</span> The workflow</h2>
+    <p class="lede">Five stages. The gates that refuse are as much a part of the design as the transitions that proceed.</p>
+  </div>
+
+  <figure class="plate">
+    <pre class="mermaid">
+%%{init: {'theme':'base','themeVariables':{'background':'#0b0f1e','primaryColor':'#151b34','primaryTextColor':'#d7f9ff','primaryBorderColor':'#00e5ff','lineColor':'#6c7bff','secondaryColor':'#1b1035','tertiaryColor':'#0f1428','clusterBkg':'#0d1226','clusterBorder':'#3a2f6b','edgeLabelBackground':'#0b0f1e','fontFamily':'ui-monospace, SFMono-Regular, Menlo, monospace'}}}%%
+flowchart TD
+    classDef src   fill:#101a33,stroke:#4cc9f0,stroke-width:1.5px,color:#cfefff
+    classDef sys   fill:#141a3a,stroke:#b14aed,stroke-width:1.5px,color:#e6d2ff
+    classDef gate  fill:#2a0b33,stroke:#ff2bd6,stroke-width:2px,color:#ffa8ee
+    classDef hgate fill:#052a2e,stroke:#00e5ff,stroke-width:2.5px,color:#a8f5ff
+    classDef lock  fill:#2b2005,stroke:#ffb703,stroke-width:2px,color:#ffe1a1
+    classDef stop  fill:#33060f,stroke:#ff3864,stroke-width:2px,color:#ffb3c4
+    classDef good  fill:#072a12,stroke:#39ff14,stroke-width:2px,color:#b6ffb0
+
+    subgraph S1["1 · Ingestion — establish what was actually said"]
+        A["Source Document<br/>RFP · contract · change request"] --> B["Extract requirements<br/>verbatim, no interpretation"]
+        B --> C{"Fidelity gate<br/>does this match the document?"}
+        C -- "no" --> B
+        C -- "yes, confirmed by a human" --> D["Text + provenance LOCKED<br/>immutable from this point"]
+    end
+
+    subgraph S2["2 · Triage — is this requirement usable?"]
+        D --> E["Record findings<br/>modality · openness · conflict · vagueness · duplication"]
+        E --> F{"Binding obligation<br/>present?"}
+        F -- "no" --> G["BLOCKED<br/>cannot be decomposed"]
+        F -- "yes" --> H["Allocate<br/>whose obligation is this?"]
+        G --> CR["Clarification register<br/>→ query to the customer"]
+        CR -. "answered" .-> E
+    end
+
+    subgraph S3["3 · Decomposition — never delegated to a machine"]
+        H --> I{"Ours to<br/>discharge?"}
+        I -- "no" --> J["Recorded, allocated away,<br/>never dropped from the set"]
+        I -- "yes" --> K["Satisfaction Set<br/>one or more per requirement"]
+        K --> L{"Are the members<br/>themselves requirements?"}
+        L -- "yes" --> K2["Each becomes a requirement<br/>one level lower"]
+        K2 -. "recurse · level-adjacency enforced" .-> K
+        L -- "no" --> M["Leaf requirement"]
+    end
+
+    subgraph S4["4 · Federation — by reference, never by copy"]
+        M --> N["Implementation Set<br/>→ epics, issues"]
+        M --> O["Verification Set<br/>→ test plans"]
+        N --> P["Reference stored:<br/>addresses the artifact,<br/>never describes it"]
+        O --> P
+        P --> Q{"Human ratifies:<br/>is this the RIGHT set?"}
+        Q -- "no" --> K
+    end
+
+    subgraph S5["5 · Read — computed live, never stored"]
+        Q -- "yes, and recorded" --> R["Ask every federated system<br/>every time"]
+        R --> S{"Did every<br/>constituent answer?"}
+        S -- "yes" --> T["Satisfaction figure<br/>built % and verified %, kept separate"]
+        S -- "no" --> U["DECLARED UNAVAILABLE<br/>with attribution — never a partial number"]
+        T --> V["Compliance artifact<br/>generated on demand, never maintained"]
+    end
+
+    class A,J,P src
+    class B,E,K,K2,M,N,O,R sys
+    class C,F,I,L,S gate
+    class Q hgate
+    class D lock
+    class G,CR,U stop
+    class T,V good
+    </pre>
+    <figcaption><b>Amber</b> locks · <b>magenta</b> gates · <b>cyan</b> human judgement · <b>red</b> refusals · <b>green</b> outputs</figcaption>
+  </figure>
+</section>
+</div>
+
+<div class="wrap">
+<section>
+  <h3>Why the shape is unusual in two places</h3>
+  <p><strong>The fidelity gate is separate from triage, and it comes first.</strong> Most tools import and immediately let you start editing. We lock the customer’s text and its provenance the moment a human confirms the extraction is faithful — and <em>only</em> then. Locking at import would freeze text nobody has checked; never locking means the baseline drifts. Immutability is the reward for review, not the consequence of upload.</p>
+  <p><strong>“Not our requirement” is a first-class outcome.</strong> A requirement allocated to the customer’s regulator, an independent assessor, or the operator is a genuine, well-formed requirement that we are not going to discharge. It stays in the set, marked. Dropping it makes the traceability record incomplete; treating it as ours makes the estimate wrong.</p>
+
+  <div class="pull">
+    <span class="big">254 requirements → 575 obligations. Half were somebody else’s.</span>
+    <p>In a real customer requirements document we put through this workflow, 254 numbered requirements decomposed into 575 distinct obligations — and <strong>286 were the supplier’s while 289 were owed by nine other parties.</strong> Almost exactly half of the document was not a requirement on the product, and that split appeared nowhere in the document’s own structure.</p>
+    <p>A supplier estimating from the 254 numbered requirements — which is what estimating practice does by default — is sizing against a document where half the obligations are somebody else’s.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">04</span> States and transitions</h2>
+
+  <h3>Four independent axes, not one status field</h3>
+  <p>The single most common failure in requirements tooling is one <code class="mono">status</code> column carrying four unrelated meanings. We keep them apart deliberately.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Axis</th><th>Values</th><th>Answers</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Lifecycle</strong></td><td class="mono">active · archived</td><td>Is this record current? Nothing is ever deleted</td></tr>
+        <tr><td><strong>Standing</strong></td><td class="mono">received · committed · satisfied · abandoned</td><td>What is our posture toward this obligation?</td></tr>
+        <tr><td><strong>Disposition</strong></td><td>findings → derived verdict</td><td>Is this requirement <em>usable</em> as written?</td></tr>
+        <tr><td><strong>Allocation</strong></td><td>the owning party</td><td><em>Whose</em> obligation is it?</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Satisfaction is deliberately not on this list.</strong> It is never a stored state — it is computed at read time, every time, from live queries (B3, B4). A requirement does not “become” satisfied; it is <em>observed</em> to be, or the observation fails and is declared unavailable.</p>
+  <p>Disposition and allocation are independent of each other, and both are independent of standing. A requirement can be perfectly well-formed and not ours; badly formed and unmistakably ours; committed to and later found contradictory. Collapsing any two of these into one field is how a requirements baseline stops being trustworthy.</p>
+</section>
+</div>
+
+<div class="bleed">
+  <figure class="plate">
+    <pre class="mermaid">
+%%{init: {'theme':'base','themeVariables':{'background':'#0b0f1e','primaryColor':'#151b34','primaryTextColor':'#d7f9ff','primaryBorderColor':'#00e5ff','lineColor':'#6c7bff','secondaryColor':'#1b1035','tertiaryColor':'#0f1428','fontFamily':'ui-monospace, SFMono-Regular, Menlo, monospace'}}}%%
+stateDiagram-v2
+    classDef lock  fill:#2b2005,stroke:#ffb703,stroke-width:2px,color:#ffe1a1
+    classDef stop  fill:#33060f,stroke:#ff3864,stroke-width:2px,color:#ffb3c4
+    classDef human fill:#052a2e,stroke:#00e5ff,stroke-width:2.5px,color:#a8f5ff
+    classDef sys   fill:#141a3a,stroke:#b14aed,stroke-width:1.5px,color:#e6d2ff
+    classDef done  fill:#072a12,stroke:#39ff14,stroke-width:2px,color:#b6ffb0
+
+    state "Discharged elsewhere" as Elsewhere
+
+    [*] --> Extracted: imported from a source document
+    Extracted --> Extracted: re-extract on mismatch
+    Extracted --> Confirmed: fidelity gate passed by a human
+
+    note right of Confirmed
+        Text and provenance become
+        immutable here, not at import.
+    end note
+
+    Confirmed --> Blocked: no binding obligation present
+    Blocked --> Confirmed: clarification answered by the customer
+
+    Confirmed --> Allocated: obligation owner identified
+    Allocated --> Elsewhere: owned by another party
+    Elsewhere --> [*]: retained in the set, never dropped
+
+    Allocated --> Decomposed: satisfied by one or more Satisfaction Sets
+    Decomposed --> Decomposed: each member is a requirement one level lower
+    Allocated --> Leaf: terminates at the implementable level
+
+    Leaf --> Ratified: a human judges the set adequate
+    Ratified --> Leaf: the set changed
+    Ratified --> Archived: superseded or withdrawn
+    Archived --> [*]
+
+    class Extracted sys
+    class Confirmed lock
+    class Blocked stop
+    class Allocated sys
+    class Elsewhere stop
+    class Decomposed sys
+    class Leaf sys
+    class Ratified human
+    class Archived done
+    </pre>
+    <figcaption>The requirement’s own lifecycle — distinct from the process above</figcaption>
+  </figure>
+</div>
+
+<div class="wrap">
+<section>
+  <h3>What each state means</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>State</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Extracted</strong></td><td>Pulled from the source document. Text is provisional — nobody has confirmed the extraction is faithful yet.</td></tr>
+        <tr><td><strong>Confirmed</strong></td><td>A human has verified the extracted text against the document. <strong>Text and provenance are now immutable.</strong> Every later step attaches <em>around</em> this text, never edits it.</td></tr>
+        <tr><td><strong>Blocked</strong></td><td>The statement carries no binding obligation — typically “should” rather than “shall”, or content that exists only in a diagram. It cannot be decomposed, because there is nothing to discharge. It is not a defect; it is a question for the customer.</td></tr>
+        <tr><td><strong>Allocated</strong></td><td>The owning party is identified. This is where “ours” and “not ours” separate.</td></tr>
+        <tr><td><strong>Discharged elsewhere</strong></td><td>A genuine requirement owed by another party. Retained, marked, and excluded from our estimate — but never removed from the traceability set.</td></tr>
+        <tr><td><strong>Decomposed</strong></td><td>Satisfied by one or more sets of lower-level requirements. Not a leaf, and holds no direct implementation.</td></tr>
+        <tr><td><strong>Leaf</strong></td><td>Terminates. Holds an Implementation set <strong>and</strong> a Verification set. Epics without test plans is built-but-unverified; test plans without epics is verified-against-nothing. Neither is a satisfied requirement.</td></tr>
+        <tr><td><strong>Ratified</strong></td><td>A human has judged that the set is the <em>right</em> set — the Adequacy question (B6). Recorded with attribution. Never inferred, never automated.</td></tr>
+        <tr><td><strong>Archived</strong></td><td>Superseded or withdrawn. Preserved with all its relationships. <strong>Nothing is ever deleted.</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>What each transition means</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Transition</th><th>Trigger</th><th>Who acts</th><th>Gate</th></tr></thead>
+      <tbody>
+        <tr><td>→ <strong>Extracted</strong></td><td>A source document is imported</td><td>System</td><td>None — extraction is mechanical</td></tr>
+        <tr><td><strong>Extracted → Extracted</strong></td><td>Extraction does not match the document</td><td>Human</td><td>Re-run; the gate is not passed until it does</td></tr>
+        <tr><td><strong>Extracted → Confirmed</strong></td><td>Fidelity confirmed</td><td><strong>Human</strong></td><td><strong>Hard gate.</strong> Immutability begins here</td></tr>
+        <tr><td><strong>Confirmed → Blocked</strong></td><td>No binding modal; nothing to discharge</td><td>System proposes, human confirms</td><td>Detection is mechanical and reliable; the <em>verdict</em> is not</td></tr>
+        <tr><td><strong>Blocked → Confirmed</strong></td><td>Customer answers the clarification</td><td>Human</td><td>The answer may resolve it, or confirm it is advisory</td></tr>
+        <tr><td><strong>Confirmed → Allocated</strong></td><td>The obligation’s owner is identified</td><td>System proposes, human confirms</td><td>Actor-phrase detection is mechanical; misallocation is pervasive and needs a reader</td></tr>
+        <tr><td><strong>Allocated → Discharged elsewhere</strong></td><td>Owner is not us</td><td>Human</td><td>Recorded, not removed</td></tr>
+        <tr><td><strong>Allocated → Decomposed</strong></td><td>A set of lower-level requirements is authored</td><td><strong>Human</strong> (assisted, never delegated)</td><td><strong>Level-adjacency enforced at write time</strong> — a child sits exactly one enabled level below its parent. Never the same level, never skipped, never upward</td></tr>
+        <tr><td><strong>Decomposed → Decomposed</strong></td><td>Each member is itself decomposed</td><td>Human</td><td>Recursion terminates at the implementable level</td></tr>
+        <tr><td><strong>Allocated → Leaf</strong></td><td>The requirement is at the implementable level</td><td>Human</td><td>Must hold both an Implementation and a Verification set</td></tr>
+        <tr><td><strong>Leaf → Ratified</strong></td><td>A human judges the set adequate</td><td><strong>Human only</strong></td><td><strong>Never computed.</strong> The one step that cannot be delegated</td></tr>
+        <tr><td><strong>Ratified → Leaf</strong></td><td>The set changed</td><td>Human</td><td>Ratification does not survive a change to what was ratified</td></tr>
+        <tr><td>→ <strong>Archived</strong></td><td>Superseded or withdrawn</td><td>Human</td><td>Soft delete. All data and relationships preserved</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>The transitions that are <em>not</em> on the diagram, on purpose</h3>
+  <div class="note">
+    <span class="k">Deliberate omissions</span>
+    <p><strong>Nothing transitions to “satisfied.”</strong> Satisfaction is computed live and can move in both directions between two reads. Making it a state would make it storable, and storing it would make it wrong (B4).</p>
+    <p><strong>Nothing transitions automatically from a machine suggestion.</strong> Every arrow with a human in the “who acts” column stays that way (B8).</p>
+    <p><strong>There is no “approved” or “signed off” state.</strong> That is Adequacy, it is recorded as ratification with attribution, and it is deliberately not a gate that blocks the system (B7).</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">05</span> Where this is real today</h2>
+  <p class="lede">Stated plainly, because a workflow document that quietly mixes shipped behaviour with intended behaviour is not reviewable.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Element</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Requirements registry, decomposition, Satisfaction Sets, soft delete</td><td><span class="pill p-built">Built &amp; tested</span></td></tr>
+        <tr><td>Live satisfaction and compliance computation over a decomposition tree</td><td><span class="pill p-built">Built &amp; tested</span></td></tr>
+        <tr><td>Import from CSV/XLSX with caller-supplied column mapping</td><td><span class="pill p-built">Built &amp; tested</span></td></tr>
+        <tr><td>Traceability export</td><td><span class="pill p-partial">Built · known gap</span></td></tr>
+        <tr><td>Federated read-through to engineering platforms</td><td><span class="pill p-design">Designed in detail</span></td></tr>
+        <tr><td>Fidelity gate as a distinct, locking step</td><td><span class="pill p-design">Designed</span></td></tr>
+        <tr><td>Triage disposition and allocation as first-class axes</td><td><span class="pill p-design">Designed · practised by hand</span></td></tr>
+        <tr><td>Programme dashboard</td><td><span class="pill p-design">In design</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <span class="k">One known gap we would rather name than have you find</span>
+    <p>Our traceability export currently emits a row per set member, which means a requirement with <em>no</em> set is simply absent from the file rather than reported as uncovered. Coverage reporting has to count what is <strong>not</strong> covered, on the default view, or it is not coverage reporting. That work is specified and scheduled.</p>
+  </div>
+
+  <div class="note">
+    <span class="k">And one constraint we found the hard way</span>
+    <p>A traceability matrix over a real corpus of this size is 254 × 575 — roughly <strong>146,000 cells</strong>. At any readable cell size that is not a view; it cannot be scanned, printed, or held in the head, no matter how correct the data in it is. The coverage <em>ratio</em> scales; the coverage <em>matrix</em> does not.</p>
+    <p>Any matrix-shaped view therefore needs a stated maximum and a defined behaviour above it — group, filter, paginate, or decline to render. Declining is legitimate, and it is the same posture as B5: better to refuse than to show something that misleads.</p>
+  </div>
+</section>
+</div>
+</main>
+
+<div class="companion">
+  <div class="wrap">
+    <p class="k">Companion document</p>
+    <h3>The Federated ALM Manifesto</h3>
+    <p>This document describes what we do. The manifesto argues why the whole category needs doing differently — the philosophy these eight beliefs are drawn from. <a href="https://bakeb7j0.github.io/ruthless/manifesto.html">Read the manifesto →</a></p>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    Oak and Wave, 2026. Prepared for review — comments and disagreement welcome, particularly on Section 01. The beliefs are where the argument is.
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,securityLevel:'loose'});</script>
